@@ -3,6 +3,7 @@ Extract dates from a scanned and OCRed PDF (typically letters), detect and parse
 
 ## Usage
 To rename a single file `document.pdf`
+<<<<<<< HEAD
     ```console
     pdf_date_renamer.py document.pdf
     ```
@@ -16,3 +17,18 @@ To rename all PDFs in a specified directory
     ```console
     pdf_date_renamer.py path_to_directory
     ```
+=======
+```console
+$ python pdf_date_renamer.py document.pdf
+```
+
+To rename all PDFs in the current directory (resursive)
+```console
+$ python pdf_date_renamer.py .
+```
+
+To rename all PDFs in a specified directory
+```console
+$ python pdf_date_renamer.py path_to_directory
+```
+>>>>>>> efedb36 (Updating readme)
