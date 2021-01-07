@@ -6,6 +6,7 @@ Extract dates from a scanned and OCRed PDF (typically letters), detect and parse
 - Python packages:
   - pdfminer.six
   - dateparser
+
 Install python dependencies with pip:
 ```console
 $ pip install pdfminer.six dateparser
