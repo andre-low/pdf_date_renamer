@@ -16,7 +16,6 @@ from pdfminer.pdfparser import PDFParser
 from dateparser.search import search_dates  # Identify dates from a string
 from datetime import datetime
 
-
 # Functions
 def preclean_text(text):  # removes colons which seem to throw the date parser
     cleaned_text = re.sub(r':\s', ' ', text, flags=re.IGNORECASE)
@@ -49,21 +48,24 @@ def pdf_parser(path):  # Open and parses PDF, returns string with cleaned text
 
 
 def pdf_date_renamer(path):
-    if path.endswith('.pdf'):
-        detected_date = find_dates(pdf_parser(path))[0][1]
-        formated_date = detected_date.strftime('%Y%m%d')
-        os.rename(path, formated_date + '.pdf')
+    global count
+    if path.endswith('.pdf'): # only acts on PDF files
+        if find_dates(pdf_parser(path)) is not None: # only proceeds if a date is detected
+            count += 1
+            detected_date = find_dates(pdf_parser(path))[0][1]
+            formated_date = detected_date.strftime('%Y%m%d')
+            os.rename(path, formated_date + '_' + str(count).zfill(3) + '.pdf')
     return
 
 
 # Walks through the entire directory, and touches all files with a specified function.
 def traverse_and_touch(directory, touch):
-    output = []
     for root, dirs, files in os.walk(directory):
         for filename in files:
             touch(os.path.join(root, filename))
     return
 
+count = 0
 
 # Command line argument assignment to variables
 arg1 = argv[1]
