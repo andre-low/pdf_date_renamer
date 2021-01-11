@@ -1,6 +1,7 @@
 # Misc libraries
 import re  # regex
 import os  # os
+from secrets import token_hex
 from io import StringIO  # string IO streaming
 from sys import argv  # accept command line arguments
 
@@ -48,13 +49,11 @@ def pdf_parser(path):  # Open and parses PDF, returns string with cleaned text
 
 
 def pdf_date_renamer(path):
-    global count
     if path.endswith('.pdf'): # only acts on PDF files
         if find_dates(pdf_parser(path)) is not None: # only proceeds if a date is detected
-            count += 1
             detected_date = find_dates(pdf_parser(path))[0][1]
             formated_date = detected_date.strftime('%Y%m%d')
-            os.rename(path, formated_date + '_' + str(count).zfill(3) + '.pdf')
+            os.rename(path, formated_date + '_' + token_hex(3) + '.pdf')
     return
 
 
@@ -64,8 +63,6 @@ def traverse_and_touch(directory, touch):
         for filename in files:
             touch(os.path.join(root, filename))
     return
-
-count = 0
 
 # Command line argument assignment to variables
 arg1 = argv[1]
