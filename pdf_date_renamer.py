@@ -27,6 +27,7 @@ def find_dates(text):
     dates = search_dates(text, languages=['en'], settings={
                          'DATE_ORDER': 'DMY',
                          'PREFER_LOCALE_DATE_ORDER': False,
+                         'TIMEZONE': 'Asia/Singapore',
                          'STRICT_PARSING': True,
                          'PREFER_DATES_FROM': 'past',
                          'PARSERS': ['absolute-time']})
