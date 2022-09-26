@@ -51,10 +51,15 @@ def pdf_parser(path):  # Open and parses PDF, returns string with cleaned text
 
 def pdf_date_renamer(path):
     if path.endswith('.pdf'): # only acts on PDF files
-        if find_dates(pdf_parser(path)) is not None: # only proceeds if a date is detected
+        print("Trying to rename: " + path)
+        if find_dates(pdf_parser(path)): # only proceeds if a date is detected
             detected_date = find_dates(pdf_parser(path))[0][1]
-            formated_date = detected_date.strftime('%Y%m%d')
-            os.rename(path, formated_date + '_' + token_hex(3) + '.pdf')
+            formatted_date = detected_date.strftime('%Y%m%d')
+            newFileName = formatted_date + '_' + token_hex(3) + '.pdf'
+            os.rename(path, newFileName)
+            print("File renamed to: " + newFileName)
+        else: 
+            print("Skipping " + path + " as no date was found.")
     return
 
 
@@ -67,8 +72,9 @@ def traverse_and_touch(directory, touch):
 
 # Command line argument assignment to variables
 arg1 = argv[1]
-
 if arg1.endswith('.pdf'):
+    print("Renaming file: " + arg1)
     pdf_date_renamer(arg1)
 else:
+    print("Renaming PDF files at path: " + arg1)
     traverse_and_touch(arg1, pdf_date_renamer)
