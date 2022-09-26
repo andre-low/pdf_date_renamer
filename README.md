@@ -18,7 +18,7 @@ To rename a single file `document.pdf`
 $ python pdf_date_renamer.py document.pdf
 ```
 
-To rename all PDFs in the current directory (resursive)
+To rename all PDFs in the current directory (recursive)
 ```console
 $ python pdf_date_renamer.py .
 ```
